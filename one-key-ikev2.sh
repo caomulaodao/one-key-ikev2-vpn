@@ -459,6 +459,7 @@ function iptables_set(){
     echo "The above content is the network card information of your VPS."
     echo "[$(__yellow "Important")]Please enter the name of the interface which can be connected to the public network."
     if [ "$os" = "1" ]; then
+    
         interface="eth0"
         
         iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
@@ -482,6 +483,7 @@ function iptables_set(){
             iptables -t nat -A POSTROUTING -s 10.31.2.0/24 -o $interface -j MASQUERADE
         fi
     else
+    
         interface="venet0"
 
         iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
@@ -504,7 +506,7 @@ function iptables_set(){
             iptables -t nat -A POSTROUTING -s 10.31.1.0/24 -o $interface -j MASQUERADE
             iptables -t nat -A POSTROUTING -s 10.31.2.0/24 -o $interface -j MASQUERADE
         fi
-    fi   
+    fi
     if [ "$system_str" = "0" ]; then
         service iptables save
     else
