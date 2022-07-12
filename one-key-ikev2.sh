@@ -445,12 +445,7 @@ net.ipv4.ip_forward=1
 EOF
     sysctl --system
     echo "Do you use firewall in CentOS7 instead of iptables?"
-    read -p "yes or no?(default_value:no):" use_firewall
-    if [ "$use_firewall" = "yes" ]; then
-        firewall_set
-    else
-        iptables_set
-    fi
+    iptables_set
 }
 
 # firewall set in CentOS7
