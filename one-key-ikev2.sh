@@ -373,6 +373,8 @@ conn android_xauth_psk
 
 conn networkmanager-strongswan
     keyexchange=ikev2
+    ike=aes256-sha256-modp2048,3des-sha1-modp2048,aes256-sha1-modp2048!
+    esp=aes128-sha256
     left=%defaultroute
     leftauth=pubkey
     leftsubnet=0.0.0.0/0
