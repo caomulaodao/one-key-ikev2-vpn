@@ -423,19 +423,12 @@ EOF
 
 function SNAT_set(){
     echo "Use SNAT could implove the speed,but your server MUST have static ip address."
-    read -p "yes or no?(default_value:no):" use_SNAT
-    if [ "$use_SNAT" = "yes" ]; then
-        use_SNAT_str="1"
-        echo -e "$(__yellow "ip address info:")"
-        ip address | grep inet
-        echo "Some servers has elastic IP (AWS) or mapping IP.In this case,you should input the IP address which is binding in network interface."
-        read -p "static ip or network interface ip (default_value:${IP}):" static_ip
-    if [ "$static_ip" = "" ]; then
-        static_ip=$IP
-    fi
-    else
-        use_SNAT_str="0"
-    fi
+    use_SNAT_str="1"
+    echo -e "$(__yellow "ip address info:")"
+    ip address | grep inet
+    echo "Some servers has elastic IP (AWS) or mapping IP.In this case,you should input the IP address which is binding in network interface."
+    read -p "static ip or network interface ip (default_value:${IP}):" static_ip
+    static_ip=$IP
 }
 
 # iptables check
@@ -467,9 +460,7 @@ function iptables_set(){
     echo "The above content is the network card information of your VPS."
     echo "[$(__yellow "Important")]Please enter the name of the interface which can be connected to the public network."
     if [ "$os" = "1" ]; then
-            read -p "Network card interface(default_value:eth0):" interface
-        if [ "$interface" = "" ]; then
-            interface="eth0"
+        interface="eth0"
         fi
         iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
         iptables -A FORWARD -s 10.31.0.0/24  -j ACCEPT
@@ -492,9 +483,7 @@ function iptables_set(){
             iptables -t nat -A POSTROUTING -s 10.31.2.0/24 -o $interface -j MASQUERADE
         fi
     else
-        read -p "Network card interface(default_value:venet0):" interface
-        if [ "$interface" = "" ]; then
-            interface="venet0"
+        interface="venet0"
         fi
         iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
         iptables -A FORWARD -s 10.31.0.0/24  -j ACCEPT
