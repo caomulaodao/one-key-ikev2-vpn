@@ -503,7 +503,8 @@ function iptables_set(){
             iptables -t nat -A POSTROUTING -s 10.31.0.0/24 -o $interface -j MASQUERADE
             iptables -t nat -A POSTROUTING -s 10.31.1.0/24 -o $interface -j MASQUERADE
             iptables -t nat -A POSTROUTING -s 10.31.2.0/24 -o $interface -j MASQUERADE
-            
+        fi
+    fi   
     if [ "$system_str" = "0" ]; then
         service iptables save
     else
